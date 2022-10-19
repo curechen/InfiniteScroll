@@ -14,8 +14,10 @@
 <script>
 export default {
   name: "InfiniteScroll",
-  props: {
-    add: Function,
+  data() {
+    return {
+      flag: false,
+    }
   },
   mounted() {
     let item = this.$refs.item
@@ -24,11 +26,14 @@ export default {
       (entries) => {
         entries.forEach((item) => {
           if (item.isIntersecting) {
-            // 。。。 埋点曝光代码
-            console.log('触发无限滚动')
-            setTimeout(() => {
-              this.$emit('add')
-            }, 1000);
+            if (!this.flag) {
+              this.flag = true
+              console.log("触发无限滚动")
+              setTimeout(() => {
+                this.$emit("add")
+                this.flag = false
+              }, 2000)
+            }
           }
         })
       },
