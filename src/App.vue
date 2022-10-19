@@ -1,15 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ul>
+    <li v-for="(item) in searchArr" :key="item">
+      {{item}}
+    </li>
+  </ul>
+  <InfiniteScroll @add="addEvent"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import InfiniteScroll from './components/InfiniteScroll.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    InfiniteScroll
+  },
+  data() {
+    return {
+      searchArr: [1,2,3,4,5,6,7,8,9,10]
+    }
+  },
+  methods: {
+    addEvent() {
+      console.log('触发')
+      this.searchArr.push(1111)
+      console.log(this.searchArr)
+    }
   }
 }
 </script>
@@ -21,6 +38,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
+  padding: 0;
 }
+li {
+  list-style: none;
+  height: 100px;
+  background-color: pink;
+}
+
 </style>
